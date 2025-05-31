@@ -1,5 +1,7 @@
 # Joplin Web Clipper Chrome Extension
 
+![alt Joppy Icon](icon128.png "Joppy Icon")
+
 A simple Chrome extension that allows you to clip selected text from any webpage directly to your local Joplin instance.
 
 ## Features
