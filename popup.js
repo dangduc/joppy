@@ -20,6 +20,69 @@ document.getElementById('save').addEventListener('click', () => {
   });
 });
 
+// Find notebook by name
+document.getElementById('findNotebook').addEventListener('click', async () => {
+  const port = document.getElementById('port').value || '41184';
+  const token = document.getElementById('token').value;
+  const notebookName = document.getElementById('notebookName').value;
+  
+  if (!token) {
+    showStatus('Please enter an API token first', 'error');
+    return;
+  }
+  
+  if (!notebookName) {
+    showStatus('Please enter a notebook name', 'error');
+    return;
+  }
+  
+  try {
+    // Use the search endpoint to find notebooks by name
+    const searchQuery = encodeURIComponent(notebookName);
+    const searchUrl = `http://localhost:${port}/search?query=${searchQuery}&type=folder&token=${token}`;
+    
+    const response = await fetch(searchUrl);
+    
+    if (response.ok) {
+      const result = await response.json();
+      
+      if (result.items && result.items.length > 0) {
+        displayNotebookResults(result.items);
+        showStatus(`Found ${result.items.length} matching notebook(s)`, 'success');
+      } else {
+        showStatus('No notebooks found with that name', 'error');
+      }
+    } else {
+      showStatus(`Search failed: ${response.status} ${response.statusText}`, 'error');
+    }
+  } catch (error) {
+    showStatus(`Search failed: ${error.message}. Make sure Joplin is running and Web Clipper is enabled.`, 'error');
+  }
+});
+
+// Display notebook search results
+function displayNotebookResults(notebooks) {
+  const resultsContainer = document.getElementById('notebookResults');
+  resultsContainer.innerHTML = '';
+  resultsContainer.style.display = 'block';
+  
+  notebooks.forEach(notebook => {
+    const notebookItem = document.createElement('div');
+    notebookItem.className = 'notebook-item';
+    notebookItem.textContent = notebook.title;
+    notebookItem.setAttribute('data-id', notebook.id);
+    
+    notebookItem.addEventListener('click', () => {
+      document.getElementById('notebookId').value = notebook.id;
+      document.getElementById('notebookName').value = notebook.title;
+      resultsContainer.style.display = 'none';
+      showStatus(`Selected notebook: ${notebook.title}`, 'success');
+    });
+    
+    resultsContainer.appendChild(notebookItem);
+  });
+}
+
 // Test connection
 document.getElementById('test').addEventListener('click', async () => {
   const port = document.getElementById('port').value || '41184';
