@@ -28,6 +28,14 @@
       border-radius: 4px;
       box-sizing: border-box;
     }
+    /* Visual indicator for search in progress */
+    input.searching {
+      background-image: url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==');
+      background-position: right 8px center;
+      background-repeat: no-repeat;
+      background-size: 16px 16px;
+      padding-right: 30px;
+    }
     button {
       background-color: #4CAF50;
       color: white;
@@ -97,37 +105,39 @@
   </style>
 </head>
 <body>
-  <h2>Joplin Clipper Settings</h2>
+  <h2>Joppy Clipper Settings</h2>
   
   <div class="form-group">
     <label for="port">Joplin Web Clipper Port:</label>
-    <input type="text" id="port" placeholder="41184">
-    <div class="help-text">Default: 41184</div>
+    <input type="text" id="port" placeholder="Default port 41184">
   </div>
   
   <div class="form-group">
     <label for="token">API Token:</label>
     <input type="password" id="token" placeholder="Enter your Joplin API token">
     <div class="help-text">
-      Get your token from Joplin: Tools → Options → Web Clipper
+      Get your token from Joplin: Settings → Web Clipper → Advanced options → Authorization token
     </div>
   </div>
   
   <div class="form-group">
-    <label for="notebookId">Default Notebook ID:</label>
-    <input type="text" id="notebookId" placeholder="Enter notebook ID">
+    <label for="notebookName">Notebook:</label>
+    <input type="text" id="selectedNotebookDisplay" placeholder="No notebook selected" readonly>
   </div>
   
-  <div class="section-divider"></div>
-  
   <div class="form-group">
-    <label for="notebookName">Find Notebook ID by Name:</label>
-    <input type="text" id="notebookName" placeholder="Enter notebook name">
-    <button id="findNotebook" style="margin-top: 10px; background-color: #2196F3;">Find Notebook</button>
+    <label for="notebookId">Notebook ID:</label>
+    <input type="text" id="notebookId" placeholder="Enter notebook ID" readonly>
+  </div>
+   
+  <div class="form-group">
+    <label for="notebookName">Find Notebook by Name:</label>
+    <input type="text" id="notebookName" placeholder="Start typing to search for notebooks...">
+    <!-- <div class="help-text">Type at least 2 characters to search automatically or press Enter to search immediately</div> -->
     <div id="notebookResults"></div>
   </div>
   
-  <div class="section-divider"></div>
+  <!-- <div class="section-divider"></div> -->
   
   <button id="save">Save Settings</button>
   <button id="test" style="margin-top: 10px; background-color: #2196F3;">Test Connection</button>

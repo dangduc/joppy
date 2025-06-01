@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Joplin Web Clipper",
+  "name": "Joppy Web Clipper",
   "version": "1.0.0",
   "description": "Clip text selections from websites directly to Joplin",
   "permissions": [
