@@ -10,7 +10,8 @@
     "notifications"
   ],
   "host_permissions": [
-    "http://localhost:41184/*"
+    "http://localhost:41184/*",
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
